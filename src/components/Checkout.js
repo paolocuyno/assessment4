@@ -1,12 +1,14 @@
 import React from 'react'
 
+
 const Checkout = props => {
 
+    
 return(
 <div>
 
 <section>
-Total
+{/* Total:  */}
 </section>
     <button onClick="clearFn()" >Checkout</button>
 </div>)

@@ -37,8 +37,7 @@ background-color: red;
 
  .kitchen{
   display: inline;
-  flex-direction: row;
-  flex-wrap: wrap;
+  
   border:solid white;
   width:75%;
  }
@@ -79,3 +78,21 @@ background-color: red;
    background-color:white;
    font-size: 30px;
  }
+
+ .Myplate-item {
+  white-space: nowrap;
+
+  text-overflow: ellipsis;
+  color: white;
+  
+  padding: 5px;
+}
+
+.Myplate-title {
+  color: white;
+  text-decoration: underline white;
+}
+
+.myPlate{
+  color: white;
+}
