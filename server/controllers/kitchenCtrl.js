@@ -1,7 +1,8 @@
 const items = require('../../menu.json')
 
 let clickedItems=[];
-let id=0
+let id=0;
+let total=0;
 
 module.exports={
     selectItems:(req,res)=>{
@@ -14,6 +15,14 @@ module.exports={
         const { name, price } = req.body
         clickedItems.push({name,price,id})
         id++
-    res.status(200).send(clickedItems)
+        total=total+price
+    res.status(200).send({clickedItems,total})
+    },
+
+    clearPlate:(req,res)=>{
+        clickedItems=[]
+        total=0
+    res.status(200).send({clickedItems,total})
     }
+
 }

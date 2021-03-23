@@ -8,9 +8,9 @@ return(
 <div>
 
 <section>
-{/* Total:  */}
+<h3>Total: ${props.total}</h3>
 </section>
-    <button onClick="clearFn()" >Checkout</button>
+    <button onClick={props.clearPlate} >Checkout</button>
 </div>)
 }
 

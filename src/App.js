@@ -14,7 +14,8 @@ class App extends Component {
     this.state = {
       selectedItems: [],
       menuItems: [],
-      orderedItems: []
+      orderedItems: [],
+      total:0
     }
     this.selectItems = this.selectItems.bind(this);
   }
@@ -28,7 +29,7 @@ class App extends Component {
   }
 
   printSelectedItems() {
-    var mappedItems = this.state.selectedItems.map((item, index) => {
+    const mappedItems = this.state.selectedItems.map((item, index) => {
       return (<div className="print-item">
         <div className="print-item-name">
           {item.name}
@@ -40,29 +41,13 @@ class App extends Component {
   }
 
   handleSelect = (name, price) => {
-    // alert("HandleSelect" + name + " " + price)
-    let item = {
-      name: name,
-      price: price
-    }
-    var updatedSelectedItems = this.state.selectedItems;
-    updatedSelectedItems.push(item);
-    this.setState({ selectedItems: updatedSelectedItems })
-    this.printSelectedItems();
-    // axios.post('/api/my-app/addItem', { name, price })
-    //   .then(res => {
-    //     this.setState({ orderedItems: res.data })
-    //   })
-    //   .catch(err => console.log(err))
-    // alert(orderedItems)
-    // const { items } = this.props;
-    // let newItems = {
-    //   name: items.name,
-    //   image: items.img
 
-    // }
-    // this.props.selectFn(newItems);
-    // this.props.refreshFn();
+    axios.post('/api/my-app', { name, price })
+      .then(res => {
+        this.setState({ selectedItems: res.data.clickedItems, total:res.data.total })
+      })
+      .catch(err => console.log(err))
+ 
 
   }
 
@@ -74,19 +59,12 @@ class App extends Component {
       .catch(err => console.log(err))
   }
 
-  // editName=(id,newName)=>{
-  //   let body={name:newName};
-  //   axios.put(/api/my-app/${id},body)
-  //   .then(res=>{
-  //     this.setState({selectedItems:res.data})
-  //   })
-  //   .catch(err=>console.log(err))
 
-  // }
-  clearPlate = (id) => {
-    axios.delete('/api/my-app/${id}')
+
+  clearPlate = () => {
+    axios.delete('/api/my-app')
       .then(res => {
-        this.setState({ selectedItems: res.data })
+        this.setState({ selectedItems: res.data.clickedItems, total:res.data.total })
       })
       .catch(err => console.log(err))
   }
@@ -102,7 +80,7 @@ class App extends Component {
           <article className='kitchen'>
             <Kitchen menuItems={this.state.menuItems} handleSelect={this.handleSelect.bind(this)} />
           </article>
-          <article className='myPlate' ><Myplate selectedItems={this.state.selectedItems} /><Checkout /> </article>
+          <article className='myPlate' ><Myplate selectedItems={this.state.selectedItems} total={this.state.total} clearPlate={this.clearPlate}/> </article>
 
         </section>
         
